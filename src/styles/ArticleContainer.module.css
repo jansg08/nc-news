@@ -1,0 +1,25 @@
+.articleContainer {
+  padding: 25px;
+}
+
+.articleHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.authorAndVotes {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.writtenBy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.articleImg {
+  width: 100%;
+}
