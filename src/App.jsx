@@ -13,6 +13,19 @@ function App() {
   return (
     <>
       <Header />
+      <main>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <PageHeader iconSrc="../icons/menu.svg" heading="Popular" />
+                <ListContainer />
+              </>
+            }
+          />
+        </Routes>
+      </main>
     </>
   );
 }
