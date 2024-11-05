@@ -1,0 +1,17 @@
+.pageHeader {
+  height: 75px;
+  padding: 0 var(--default-padding);
+}
+
+.headingItems {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 72px;
+}
+
+.hRule {
+  border: 1.5px solid var(--primary);
+  border-radius: 1.5px;
+  margin: 0;
+}
