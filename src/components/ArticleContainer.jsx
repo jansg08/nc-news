@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { apiClient } from "../utils/apiClient";
 import { useParams } from "react-router-dom";
-import { ArticleHeader } from "./ArticleHeader";
 
 export const ArticleContainer = () => {
   const { article_id } = useParams();
