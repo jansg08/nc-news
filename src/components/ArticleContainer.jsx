@@ -8,12 +8,13 @@ import {
   writtenBy,
   articleImg,
 } from "../styles/ArticleContainer.module.css";
+import { CommentCard } from "./CommentCard";
 
 export const ArticleContainer = () => {
   const { article_id } = useParams();
   const [article, setArticle] = useState({});
   const [author, setUser] = useState({});
-
+  const [comments, setComments] = useState([]);
   useEffect(() => {
     apiClient
       .get(`/articles/${article_id}`)
@@ -22,6 +23,9 @@ export const ArticleContainer = () => {
         return apiClient.get(`/users/${data.article.author}`);
       })
       .then(({ data }) => setUser(data.user));
+    apiClient
+      .get(`/articles/${article_id}/comments`)
+      .then(({ data }) => setComments(data.comments));
   }, []);
   return (
     <div className={articleContainer}>
@@ -38,6 +42,14 @@ export const ArticleContainer = () => {
         <hr className="h-rule" />
       </header>
       <p>{article.body}</p>
+      <div>
+        <hr className="h-rule" />
+        <ul>
+          {comments.map((comment) => (
+            <CommentCard key={comment.comment_id} comment={comment} />
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };
