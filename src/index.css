@@ -1,14 +1,20 @@
+@import url("https://fonts.googleapis.com/css2?family=Istok+Web:ital,wght@0,400;0,700;1,400;1,700&family=Jacquard+24&display=swap");
+
 :root {
   --primary: #edeaea;
   --secondary: #9d9c9c;
   --background: #343434;
   --secondary-bg: #111111;
+  --card-bg: #5b5252;
   --default-padding: 25px;
   --avatar-lg: 32px;
   --avatar-sm: 20px;
-  font-size: 16px;
   color: var(--primary);
   line-height: 1.2;
+  font-size: 16px;
+  font-family: "Istok Web", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
 body {
@@ -20,6 +26,29 @@ h1,
 h2,
 h3 {
   margin: 0;
+  font-weight: inherit;
+}
+
+h1 {
+  line-height: 1;
+  font-size: 3rem;
+  font-family: "Jacquard 24";
+  font-weight: 400;
+  font-style: normal;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.25rem;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 
 .link {
