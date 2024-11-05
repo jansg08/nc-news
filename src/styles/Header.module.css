@@ -1,0 +1,15 @@
+.navbar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  box-sizing: border-box;
+  border-radius: 0 0 10px 10px;
+  width: 100vw;
+  padding: var(--default-padding);
+  background-color: var(--secondary-bg);
+}
+
+.navbar_lastItem {
+  margin-left: auto;
+}

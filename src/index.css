@@ -1,0 +1,51 @@
+:root {
+  --primary: #edeaea;
+  --secondary: #9d9c9c;
+  --background: #343434;
+  --secondary-bg: #111111;
+  --default-padding: 25px;
+  --avatar-lg: 32px;
+  --avatar-sm: 20px;
+  font-size: 16px;
+  color: var(--primary);
+  line-height: 1.2;
+}
+
+body {
+  background-color: var(--background);
+  margin: 0;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+}
+
+.link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.icon {
+  fill: var(--primary);
+}
+
+.icon-big {
+  width: 32px;
+  height: 32px;
+}
+
+.avatar {
+  border-radius: 50%;
+}
+
+.avatar-big {
+  width: var(--avatar-lg);
+  height: var(--avatar-lg);
+}
+
+.avatar-small {
+  width: var(--avatar-sm);
+  height: var(--avatar-sm);
+}
