@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import { PageHeader } from "./components/PageHeader";
 import { useState } from "react";
 import { ListContainer } from "./components/ListContainer";
+import { ArticleContainer } from "./components/ArticleContainer";
 
 function App() {
   const [user, setUser] = useState({
@@ -24,6 +25,7 @@ function App() {
               </>
             }
           />
+          <Route path="/articles/:article_id" element={<ArticleContainer />} />
         </Routes>
       </main>
     </>

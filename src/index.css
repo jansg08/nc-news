@@ -49,3 +49,9 @@ h3 {
   width: var(--avatar-sm);
   height: var(--avatar-sm);
 }
+
+.h-rule {
+  border: 1.5px solid var(--primary);
+  border-radius: 1.5px;
+  margin: 0;
+}
