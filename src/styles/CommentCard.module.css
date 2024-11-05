@@ -1,0 +1,13 @@
+.commentCard {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 10px;
+  background-color: var(--card-bg);
+  border-radius: 10px;
+}
+
+.commentHeader {
+  display: flex;
+  gap: 10px;
+}

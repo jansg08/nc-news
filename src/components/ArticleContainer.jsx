@@ -7,6 +7,8 @@ import {
   authorAndVotes,
   writtenBy,
   articleImg,
+  commentsHeading,
+  commentsList,
 } from "../styles/ArticleContainer.module.css";
 import { CommentCard } from "./CommentCard";
 
@@ -44,7 +46,8 @@ export const ArticleContainer = () => {
       <p>{article.body}</p>
       <div>
         <hr className="h-rule" />
-        <ul>
+        <h2 className={commentsHeading}>Comments</h2>
+        <ul className={commentsList}>
           {comments.map((comment) => (
             <CommentCard key={comment.comment_id} comment={comment} />
           ))}

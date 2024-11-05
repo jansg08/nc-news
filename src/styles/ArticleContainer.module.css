@@ -15,6 +15,7 @@
 }
 
 .writtenBy {
+  font-size: 0.85rem;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -22,4 +23,15 @@
 
 .articleImg {
   width: 100%;
+}
+
+.commentsHeading {
+  margin-top: 20px;
+}
+
+.commentsList {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
