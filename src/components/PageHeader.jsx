@@ -1,9 +1,5 @@
 import Popular from "../icons/popular.svg?react";
-import {
-  pageHeader,
-  headingItems,
-  hRule,
-} from "../styles/PageHeader.module.css";
+import { pageHeader, headingItems } from "../styles/PageHeader.module.css";
 export const PageHeader = ({ iconSrc, heading, buttonIconSrc }) => {
   return (
     <header className={pageHeader}>
@@ -16,7 +12,7 @@ export const PageHeader = ({ iconSrc, heading, buttonIconSrc }) => {
           </button>
         )}
       </div>
-      <hr className={hRule} />
+      <hr className="h-rule" />
     </header>
   );
 };
