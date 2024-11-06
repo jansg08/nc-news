@@ -42,36 +42,17 @@ export const ArticleContainer = () => {
       .get(`/articles/${article_id}/comments`)
       .then(({ data }) => setComments(data.comments));
   }, []);
-  const handleUpVote = () => {
-    if (!hasVoted) {
-      setHasVoted(1);
-      setVotes(votes + 1);
-      patchArticleVotes(article.article_id, 1, setHasVoted, setVotes);
-    } else if (hasVoted === 1) {
-      setHasVoted(0);
-      setVotes(votes - 1);
-      patchArticleVotes(article.article_id, -1, setHasVoted, setVotes);
-    } else {
-      setHasVoted(1);
-      setVotes(votes + 2);
-      patchArticleVotes(article.article_id, 2, setHasVoted, setVotes);
+
+  const handleVote = (e) => {
+    let comparison = Number(e.target.id || e.target.parentElement.id);
+    if (hasVoted === comparison) {
+      comparison = -comparison;
+    } else if (hasVoted === -comparison) {
+      comparison *= 2;
     }
+    patchArticleVotes(article.article_id, comparison, setHasVoted, setVotes);
   };
-  const handleDownVote = () => {
-    if (!hasVoted) {
-      setHasVoted(-1);
-      setVotes(votes - 1);
-      patchArticleVotes(article.article_id, -1, setHasVoted, setVotes);
-    } else if (hasVoted === -1) {
-      setHasVoted(0);
-      setVotes(votes + 1);
-      patchArticleVotes(article.article_id, 1, setHasVoted, setVotes);
-    } else {
-      setHasVoted(-1);
-      setVotes(votes - 2);
-      patchArticleVotes(article.article_id, -2, setHasVoted, setVotes);
-    }
-  };
+
   return (
     <div className={articleContainer}>
       <header className={articleHeader}>
@@ -83,12 +64,16 @@ export const ArticleContainer = () => {
             <span>{author.name}</span>
           </div>
           <div className={votingBlock}>
-            <button onClick={handleUpVote} className={voteButton} id="1">
-              <UpVote className={`${voteIcon} ${hasVoted === 1 && upVoted}`} />
+            <button onClick={handleVote} className={voteButton} id="1">
+              <UpVote
+                id="1"
+                className={`${voteIcon} ${hasVoted === 1 && upVoted}`}
+              />
             </button>
             <span className={votes}>{votes}</span>
-            <button onClick={handleDownVote} className={voteButton} id="0">
+            <button id="-1" onClick={handleVote} className={voteButton}>
               <DownVote
+                id="-1"
                 className={`${voteIcon} ${hasVoted === -1 && downVoted}`}
               />
             </button>
