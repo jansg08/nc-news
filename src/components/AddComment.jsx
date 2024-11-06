@@ -1,13 +1,16 @@
-import { useState } from "react";
 import { commentCard, commentHeader } from "../styles/CommentCard.module.css";
-import { apiClient } from "../utils/apiClient";
+import {
+  submitButton,
+  posted,
+  commentBody,
+} from "../styles/AddComment.module.css";
 
 export const AddComment = ({
   user,
   handleSubmit,
   commentInput,
   setCommentInput,
-  posting,
+  postStatus,
 }) => {
   return (
     <li>
@@ -15,13 +18,20 @@ export const AddComment = ({
         <div className={commentHeader}>
           <img src={user.avatar_url} className="avatar avatar-small" />
           <span>You</span>
-          <button disabled={posting} type="submit">
-            Post
+          <button
+            disabled={postStatus === "Posting"}
+            type="submit"
+            className={`${
+              postStatus === "Posted 😁" && posted
+            } ${submitButton}`}
+          >
+            {postStatus}
           </button>
         </div>
         <textarea
           value={commentInput}
           onChange={(e) => setCommentInput(e.target.value)}
+          className={commentBody}
           placeholder="Have your say..."
         />
       </form>

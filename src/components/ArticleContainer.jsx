@@ -29,7 +29,7 @@ import { AddComment } from "./AddComment";
 export const ArticleContainer = () => {
   const { article_id } = useParams();
   const [article, setArticle] = useState({});
-  const [author, setUser] = useState({});
+  const [author, setAuthor] = useState({});
   const [comments, setComments] = useState([]);
   const [hasVoted, setHasVoted] = useLocalStorage(`hasVoted${article_id}`, 0);
   const [votes, setVotes] = useState(0);
@@ -37,7 +37,7 @@ export const ArticleContainer = () => {
   const [loadingArticle, setLoadingArticle] = useState(true);
   const [loadingComments, setLoadingComments] = useState(true);
   const [commentInput, setCommentInput] = useState("");
-  const [posting, setPosting] = useState(false);
+  const [postStatus, setPostStatus] = useState("Post");
 
   useEffect(() => {
     setLoadingArticle(true);
@@ -48,14 +48,18 @@ export const ArticleContainer = () => {
         setLoadingArticle(false);
         setArticle(data.article);
         setVotes(data.article.votes);
-        return apiClient.get(`/users/${data.article.author}`);
+        return Promise.all([
+          apiClient.get(`/users/${data.article.author}`),
+          apiClient.get(`/articles/${article_id}/comments`, {
+            params: { limit: data.article.comment_count },
+          }),
+        ]);
       })
-      .then(({ data }) => setUser(data.user));
-
-    apiClient.get(`/articles/${article_id}/comments`).then(({ data }) => {
-      setLoadingComments(false);
-      setComments(data.comments);
-    });
+      .then(([authorData, commentsData]) => {
+        setLoadingComments(false);
+        setAuthor(authorData.data.user);
+        setComments(commentsData.data.comments);
+      });
   }, []);
 
   const handleVote = (e) => {
@@ -70,15 +74,22 @@ export const ArticleContainer = () => {
 
   const handleCommentSubmit = (e) => {
     e.preventDefault();
-    setPosting(true);
+    setPostStatus("Posting");
+    console.log({
+      username: user.username,
+      body: commentInput,
+    });
+    console.log(`/articles/${article_id}/comments`);
     apiClient
       .post(`/articles/${article_id}/comments`, {
         username: user.username,
         body: commentInput,
       })
       .then(({ data }) => {
-        setPosting(false);
+        setCommentInput("");
+        setPostStatus("Posted 😁");
         setComments((currComments) => [data.comment, ...currComments]);
+        setTimeout(() => setPostStatus("Post"), 5000);
       });
   };
 
@@ -130,6 +141,7 @@ export const ArticleContainer = () => {
             handleSubmit={handleCommentSubmit}
             commentInput={commentInput}
             setCommentInput={setCommentInput}
+            postStatus={postStatus}
           />
           {loadingComments && (
             <LoadingWithBar currentlyLoading="comments" colour="#2bb634" />
