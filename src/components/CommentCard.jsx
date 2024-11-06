@@ -1,12 +1,12 @@
 import { commentCard, commentHeader } from "../styles/CommentCard.module.css";
 
-export const CommentCard = ({ comment, author }) => {
+export const CommentCard = ({ comment, author, authorAvatar }) => {
   const { body, votes } = comment;
   return (
     <li className={commentCard}>
       <div className={commentHeader}>
-        <img src={author?.avatar_url} className="avatar avatar-small" />
-        <span>{author?.username}</span>
+        <img src={authorAvatar} className="avatar avatar-small" />
+        <span>{author}</span>
         <span>Votes: {votes}</span>
       </div>
       {body}

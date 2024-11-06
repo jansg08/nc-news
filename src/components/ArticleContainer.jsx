@@ -72,7 +72,6 @@ export const ArticleContainer = () => {
         usersData.forEach(
           ({ data }) => (usersByUsername[data.user.username] = data.user)
         );
-        console.log(usersByUsername);
         setCommentAuthors(usersByUsername);
       });
   }, []);
@@ -166,7 +165,10 @@ export const ArticleContainer = () => {
               <CommentCard
                 key={comment.comment_id}
                 comment={comment}
-                author={commentAuthors[comment.author]}
+                author={
+                  comment.author === user.username ? "You" : comment.author
+                }
+                authorAvatar={commentAuthors[comment.author]?.avatar_url}
               />
             ))}
         </ul>
