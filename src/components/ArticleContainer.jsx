@@ -28,16 +28,17 @@ import { AddComment } from "./AddComment";
 
 export const ArticleContainer = () => {
   const { article_id } = useParams();
+  const { user } = useContext(UserContext);
   const [article, setArticle] = useState({});
   const [author, setAuthor] = useState({});
   const [comments, setComments] = useState([]);
   const [hasVoted, setHasVoted] = useLocalStorage(`hasVoted${article_id}`, 0);
   const [votes, setVotes] = useState(0);
-  const { user } = useContext(UserContext);
   const [loadingArticle, setLoadingArticle] = useState(true);
   const [loadingComments, setLoadingComments] = useState(true);
   const [commentInput, setCommentInput] = useState("");
   const [postStatus, setPostStatus] = useState("Post");
+  const [commentAuthors, setCommentAuthors] = useState({});
 
   useEffect(() => {
     setLoadingArticle(true);
@@ -56,9 +57,22 @@ export const ArticleContainer = () => {
         ]);
       })
       .then(([authorData, commentsData]) => {
+        const { comments } = commentsData.data;
+        const usersToFetch = comments
+          .map(({ author }) => author)
+          .filter((el, i, arr) => arr.indexOf(el) === i)
+          .map((author) => apiClient.get(`/users/${author}`));
         setLoadingComments(false);
         setAuthor(authorData.data.user);
-        setComments(commentsData.data.comments);
+        setComments(comments);
+        return Promise.all(usersToFetch);
+      })
+      .then((usersData) => {
+        const usersByUsername = {};
+        usersData.forEach(
+          ({ data }) => (usersByUsername[data.user.username] = data.user)
+        );
+        setCommentAuthors(usersByUsername);
       });
   }, []);
 
@@ -148,7 +162,14 @@ export const ArticleContainer = () => {
           )}
           {loadingComments ||
             comments.map((comment) => (
-              <CommentCard key={comment.comment_id} comment={comment} />
+              <CommentCard
+                key={comment.comment_id}
+                comment={comment}
+                author={
+                  comment.author === user.username ? "You" : comment.author
+                }
+                authorAvatar={commentAuthors[comment.author]?.avatar_url}
+              />
             ))}
         </ul>
       </div>
