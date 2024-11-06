@@ -29,6 +29,7 @@ export const AddComment = ({
           </button>
         </div>
         <textarea
+          required
           value={commentInput}
           onChange={(e) => setCommentInput(e.target.value)}
           className={commentBody}
