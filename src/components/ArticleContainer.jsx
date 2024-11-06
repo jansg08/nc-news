@@ -24,17 +24,21 @@ import { patchArticleVotes } from "../utils/patchArticleVotes";
 import { UserContext } from "../contexts/User";
 import { LoadingWithHash } from "./LoadingWithHash";
 import { LoadingWithBar } from "./LoadingWithBar";
+import { AddComment } from "./AddComment";
 
 export const ArticleContainer = () => {
   const { article_id } = useParams();
   const [article, setArticle] = useState({});
-  const [author, setUser] = useState({});
+  const [author, setAuthor] = useState({});
   const [comments, setComments] = useState([]);
-  const [hasVoted, setHasVoted] = useLocalStorage("hasVoted", 0);
+  const [hasVoted, setHasVoted] = useLocalStorage(`hasVoted${article_id}`, 0);
   const [votes, setVotes] = useState(0);
   const { user } = useContext(UserContext);
   const [loadingArticle, setLoadingArticle] = useState(true);
   const [loadingComments, setLoadingComments] = useState(true);
+  const [commentInput, setCommentInput] = useState("");
+  const [postStatus, setPostStatus] = useState("Post");
+
   useEffect(() => {
     setLoadingArticle(true);
     setLoadingComments(true);
@@ -44,14 +48,18 @@ export const ArticleContainer = () => {
         setLoadingArticle(false);
         setArticle(data.article);
         setVotes(data.article.votes);
-        return apiClient.get(`/users/${data.article.author}`);
+        return Promise.all([
+          apiClient.get(`/users/${data.article.author}`),
+          apiClient.get(`/articles/${article_id}/comments`, {
+            params: { limit: data.article.comment_count },
+          }),
+        ]);
       })
-      .then(({ data }) => setUser(data.user));
-
-    apiClient.get(`/articles/${article_id}/comments`).then(({ data }) => {
-      setLoadingComments(false);
-      setComments(data.comments);
-    });
+      .then(([authorData, commentsData]) => {
+        setLoadingComments(false);
+        setAuthor(authorData.data.user);
+        setComments(commentsData.data.comments);
+      });
   }, []);
 
   const handleVote = (e) => {
@@ -62,6 +70,27 @@ export const ArticleContainer = () => {
       comparison *= 2;
     }
     patchArticleVotes(article.article_id, comparison, setHasVoted, setVotes);
+  };
+
+  const handleCommentSubmit = (e) => {
+    e.preventDefault();
+    setPostStatus("Posting");
+    console.log({
+      username: user.username,
+      body: commentInput,
+    });
+    console.log(`/articles/${article_id}/comments`);
+    apiClient
+      .post(`/articles/${article_id}/comments`, {
+        username: user.username,
+        body: commentInput,
+      })
+      .then(({ data }) => {
+        setCommentInput("");
+        setPostStatus("Posted 😁");
+        setComments((currComments) => [data.comment, ...currComments]);
+        setTimeout(() => setPostStatus("Post"), 5000);
+      });
   };
 
   return (
@@ -106,16 +135,22 @@ export const ArticleContainer = () => {
       <div>
         <hr className="h-rule" />
         <h2 className={commentsHeading}>Comments</h2>
-        {loadingComments && (
-          <LoadingWithBar currentlyLoading="comments" colour="#2bb634" />
-        )}
-        {loadingComments || (
-          <ul className={commentsList}>
-            {comments.map((comment) => (
+        <ul className={commentsList}>
+          <AddComment
+            user={user}
+            handleSubmit={handleCommentSubmit}
+            commentInput={commentInput}
+            setCommentInput={setCommentInput}
+            postStatus={postStatus}
+          />
+          {loadingComments && (
+            <LoadingWithBar currentlyLoading="comments" colour="#2bb634" />
+          )}
+          {loadingComments ||
+            comments.map((comment) => (
               <CommentCard key={comment.comment_id} comment={comment} />
             ))}
-          </ul>
-        )}
+        </ul>
       </div>
     </div>
   );

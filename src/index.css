@@ -3,9 +3,9 @@
 :root {
   --primary: #edeaea;
   --secondary: #9d9c9c;
+  --card-bg: #5b5252;
   --background: #343434;
   --secondary-bg: #111111;
-  --card-bg: #5b5252;
   --default-padding: 25px;
   --avatar-lg: 32px;
   --icon-lg: 32px;
@@ -22,6 +22,10 @@
 body {
   background-color: var(--background);
   margin: 0;
+}
+
+main {
+  padding-top: 73px;
 }
 
 h1,

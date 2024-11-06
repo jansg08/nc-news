@@ -1,0 +1,36 @@
+.submitButton {
+  box-sizing: border-box;
+  text-decoration: underline;
+  font-size: 0.75rem;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  background-color: var(--secondary-bg);
+  padding: 1px 8px 2px 8px;
+  border: none;
+  border-radius: 10px;
+  color: inherit;
+  margin-left: auto;
+}
+
+.submitButton:disabled {
+  filter: brightness(50%);
+}
+
+.posted {
+  color: black;
+  background-color: rgb(17, 172, 17);
+}
+
+.commentBody {
+  font: inherit;
+  color: inherit;
+  border: none;
+  background-color: inherit;
+  resize: none;
+  outline: none;
+}
+
+.commentBody::placeholder {
+  filter: brightness(130%);
+}
