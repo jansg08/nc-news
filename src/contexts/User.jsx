@@ -4,9 +4,10 @@ export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState({
-    username: "icellusedkars",
-    name: "sam",
-    avatar_url: "https://avatars2.githubusercontent.com/u/24604688?s=460&v=4",
+    username: "happyamy2016",
+    name: "Amy Happy",
+    avatar_url:
+      "https://vignette1.wikia.nocookie.net/mrmen/images/7/7f/Mr_Happy.jpg/revision/latest?cb=20140102171729",
   });
   return (
     <UserContext.Provider value={{ user, setUser }}>

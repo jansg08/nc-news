@@ -24,17 +24,21 @@ import { patchArticleVotes } from "../utils/patchArticleVotes";
 import { UserContext } from "../contexts/User";
 import { LoadingWithHash } from "./LoadingWithHash";
 import { LoadingWithBar } from "./LoadingWithBar";
+import { AddComment } from "./AddComment";
 
 export const ArticleContainer = () => {
   const { article_id } = useParams();
   const [article, setArticle] = useState({});
   const [author, setUser] = useState({});
   const [comments, setComments] = useState([]);
-  const [hasVoted, setHasVoted] = useLocalStorage("hasVoted", 0);
+  const [hasVoted, setHasVoted] = useLocalStorage(`hasVoted${article_id}`, 0);
   const [votes, setVotes] = useState(0);
   const { user } = useContext(UserContext);
   const [loadingArticle, setLoadingArticle] = useState(true);
   const [loadingComments, setLoadingComments] = useState(true);
+  const [commentInput, setCommentInput] = useState("");
+  const [posting, setPosting] = useState(false);
+
   useEffect(() => {
     setLoadingArticle(true);
     setLoadingComments(true);
@@ -62,6 +66,20 @@ export const ArticleContainer = () => {
       comparison *= 2;
     }
     patchArticleVotes(article.article_id, comparison, setHasVoted, setVotes);
+  };
+
+  const handleCommentSubmit = (e) => {
+    e.preventDefault();
+    setPosting(true);
+    apiClient
+      .post(`/articles/${article_id}/comments`, {
+        username: user.username,
+        body: commentInput,
+      })
+      .then(({ data }) => {
+        setPosting(false);
+        setComments((currComments) => [data.comment, ...currComments]);
+      });
   };
 
   return (
@@ -106,16 +124,21 @@ export const ArticleContainer = () => {
       <div>
         <hr className="h-rule" />
         <h2 className={commentsHeading}>Comments</h2>
-        {loadingComments && (
-          <LoadingWithBar currentlyLoading="comments" colour="#2bb634" />
-        )}
-        {loadingComments || (
-          <ul className={commentsList}>
-            {comments.map((comment) => (
+        <ul className={commentsList}>
+          <AddComment
+            user={user}
+            handleSubmit={handleCommentSubmit}
+            commentInput={commentInput}
+            setCommentInput={setCommentInput}
+          />
+          {loadingComments && (
+            <LoadingWithBar currentlyLoading="comments" colour="#2bb634" />
+          )}
+          {loadingComments ||
+            comments.map((comment) => (
               <CommentCard key={comment.comment_id} comment={comment} />
             ))}
-          </ul>
-        )}
+        </ul>
       </div>
     </div>
   );

@@ -6,8 +6,9 @@
   box-sizing: border-box;
   border-radius: 0 0 10px 10px;
   width: 100vw;
-  padding: var(--default-padding);
+  padding: calc(var(--default-padding) / 2) var(--default-padding);
   background-color: var(--secondary-bg);
+  position: fixed;
 }
 
 .navbar_lastItem {
