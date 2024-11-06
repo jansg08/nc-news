@@ -8,7 +8,9 @@
   --card-bg: #5b5252;
   --default-padding: 25px;
   --avatar-lg: 32px;
+  --icon-lg: 32px;
   --avatar-sm: 20px;
+  --icon-sm: 20px;
   color: var(--primary);
   line-height: 1.2;
   font-size: 16px;
@@ -61,8 +63,13 @@ ul {
 }
 
 .icon-big {
-  width: 32px;
-  height: 32px;
+  width: var(--icon-lg);
+  height: var(--icon-lg);
+}
+
+.icon-small {
+  width: var(--icon-sm);
+  height: var(--icon-sm);
 }
 
 .avatar {
