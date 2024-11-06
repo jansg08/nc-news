@@ -21,6 +21,34 @@
   align-items: flex-start;
 }
 
+.votingBlock {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+.voteButton {
+  background-color: rgba(255, 255, 255, 0);
+  border: none;
+}
+
+.voteIcon {
+  height: calc(var(--icon-lg) * 1.1);
+  width: calc(var(--icon-lg) * 1.1);
+}
+
+.upVoted {
+  fill: forestgreen;
+}
+
+.downVoted {
+  fill: darkorange;
+}
+
+.votes {
+  margin: 5px;
+}
+
 .articleImg {
   width: 100%;
 }
