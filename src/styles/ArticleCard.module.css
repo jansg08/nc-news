@@ -1,24 +1,36 @@
 .articleCard {
   box-sizing: border-box;
   width: 100%;
-  height: 154px;
-  display: grid;
+  background-color: var(--card-bg);
+  border-radius: 15px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.imgAndTitle {
+  display: flex;
   gap: 10px;
-  grid-template-columns: repeat(1fr, 2);
-  grid-template-rows: 100px 20px;
-  grid-template-areas:
-    "img title"
-    "tags tags";
+}
+
+.imgLink {
+  width: 50%;
+}
+
+.titleLink {
+  width: 50%;
 }
 
 .articleImg {
-  text-align: left;
   grid-area: img;
-  height: 100%;
+  max-width: 100%;
+  border-radius: 5px;
 }
 
 .articleTitle {
   grid-area: title;
+  text-align: left;
 }
 
 .tags {
@@ -30,5 +42,19 @@
 }
 
 .tag {
-  margin: 0;
+  box-sizing: border-box;
+  text-decoration: underline;
+  font-size: 0.75rem;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  background-color: var(--secondary-bg);
+  padding: 1px 8px 2px 8px;
+  border-radius: 10px;
+}
+
+.tagIcon {
+  height: 15px;
+  margin-right: 3px;
+  margin-left: -2px;
 }
