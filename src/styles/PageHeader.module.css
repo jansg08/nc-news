@@ -1,5 +1,5 @@
 .pageHeader {
-  height: 75px;
+  /* height: 75px; */
   padding: 0 var(--default-padding);
 }
 
@@ -8,4 +8,17 @@
   align-items: center;
   gap: 10px;
   height: 72px;
+}
+
+.showOptionsButton {
+  background-color: var(--secondary-bg);
+  border: none;
+  border-radius: 50%;
+  margin-left: auto;
+  height: calc(var(--icon-lg) * 1.3);
+  width: calc(var(--icon-lg) * 1.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4px;
 }

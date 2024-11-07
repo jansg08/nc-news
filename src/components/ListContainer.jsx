@@ -4,17 +4,26 @@ import { ArticleCard } from "./ArticleCard";
 import { listContainer } from "../styles/ListContainer.module.css";
 import { TopicCard } from "./TopicCard";
 import { LoadingWithGrid } from "./LoadingWithGrid";
+import { useSearchParams } from "react-router-dom";
 
 export const ListContainer = ({ type }) => {
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchParams] = useSearchParams();
   useEffect(() => {
+    const options = {
+      params: {
+        sort_by: searchParams.get("sort_by") || "votes",
+        topic: searchParams.get("topic") || null,
+        order: searchParams.get("order") || null,
+      },
+    };
     setLoading(true);
-    apiClient.get(`/${type}`, { sort_by: "votes" }).then(({ data }) => {
+    apiClient.get(`/${type}`, options).then(({ data }) => {
       setLoading(false);
       setList(data[type]);
     });
-  }, []);
+  }, [searchParams]);
   return (
     <div className={listContainer}>
       {loading ||
