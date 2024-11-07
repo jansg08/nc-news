@@ -4,8 +4,9 @@ import { PageHeader } from "./components/PageHeader";
 import { useState } from "react";
 import { ListContainer } from "./components/ListContainer";
 import { ArticleContainer } from "./components/ArticleContainer";
-import PopularIcon from "./icons/menu.svg?react";
+import PopularIcon from "./icons/popular.svg?react";
 import TopicsIcon from "./icons/topics.svg?react";
+import SortIcon from "./icons/sort.svg?react";
 
 function App() {
   const [user, setUser] = useState({
@@ -22,7 +23,11 @@ function App() {
             path="/"
             element={
               <>
-                <PageHeader headingIcon={<PopularIcon />} heading="Popular" />
+                <PageHeader
+                  headingIcon={<PopularIcon className="icon icon-big" />}
+                  heading="Popular"
+                  buttonIcon={<SortIcon className="icon icon-big" />}
+                />
                 <ListContainer type="articles" />
               </>
             }
