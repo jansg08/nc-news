@@ -9,6 +9,7 @@
   padding: calc(var(--default-padding) / 2) var(--default-padding);
   background-color: var(--secondary-bg);
   position: fixed;
+  z-index: 10;
 }
 
 .navbar_lastItem {
