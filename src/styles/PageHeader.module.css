@@ -22,3 +22,40 @@
   align-items: center;
   padding: 4px;
 }
+
+.formRow {
+  display: flex;
+  align-items: center;
+}
+
+.optionsForm {
+  margin-bottom: 20px;
+}
+
+.optionsForm select {
+  box-sizing: border-box;
+  height: 20px;
+  display: inline-flex;
+  align-items: center;
+  color: inherit;
+  background-color: var(--secondary-bg);
+  padding: 1px 8px 2px 8px;
+  margin-left: 10px;
+  outline: none;
+  border: none;
+}
+
+.optionsForm label {
+  width: 90px;
+}
+
+.orderRadioGroup {
+  margin-left: auto;
+}
+
+.orderRadioGroup label {
+  cursor: pointer;
+}
+.orderRadioGroup input[type="radio"]:checked + label > svg {
+  fill: #a3adde;
+}

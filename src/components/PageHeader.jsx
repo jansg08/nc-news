@@ -5,7 +5,12 @@ import {
   pageHeader,
   headingItems,
   showOptionsButton,
+  formRow,
+  orderRadioGroup,
+  optionsForm,
 } from "../styles/PageHeader.module.css";
+import { articleCard } from "../styles/ArticleCard.module.css";
+import { submitButton } from "../styles/AddComment.module.css";
 import { useEffect, useState } from "react";
 import { apiClient } from "../utils/apiClient";
 
@@ -21,7 +26,7 @@ export const PageHeader = ({ headingIcon, heading, buttonIcon }) => {
     ["topic", "Topic"],
     ["author", "Author"],
     ["created_at", "Date written"],
-    ["votes", "Number of votes"],
+    ["votes", "Vote count"],
     ["comments", "Comment count"],
   ];
 
@@ -57,51 +62,62 @@ export const PageHeader = ({ headingIcon, heading, buttonIcon }) => {
         )}
       </div>
       {showSortOptions && (
-        <div>
+        <div className={`${optionsForm} ${articleCard}`}>
           <form onSubmit={handleSubmit}>
-            <label>
-              Sort by:
-              <select value={sortByInput} onChange={handleSortByChange}>
+            <div className={formRow}>
+              <label htmlFor="sortBy">Sort by</label>
+              <select
+                value={sortByInput}
+                onChange={handleSortByChange}
+                id="sortBy"
+              >
                 {columns.map(([value, innerText]) => (
                   <option value={value}>{innerText}</option>
                 ))}
               </select>
-            </label>
-            <label>
-              Order:
-              <label>
-                <AscendingIcon />
+              <div className={orderRadioGroup}>
                 <input
                   type="radio"
                   name="order"
+                  id="ascending"
                   value="asc"
                   checked={orderInput === "asc"}
                   onChange={handleOrderChange}
                   style={{ display: "none" }}
                 />
-              </label>
-              <label>
-                <DescendingIcon />
+                <label htmlFor="ascending">
+                  <AscendingIcon />
+                </label>
                 <input
                   type="radio"
                   name="order"
+                  id="descending"
                   value="desc"
                   checked={orderInput === "desc"}
                   onChange={handleOrderChange}
                   style={{ display: "none" }}
                 />
-              </label>
-            </label>
-            <label>
-              Select topic:
-              <select value={topicInput} onChange={handleTopicChange}>
+                <label htmlFor="descending">
+                  <DescendingIcon />
+                </label>
+              </div>
+            </div>
+            <div className={formRow}>
+              <label htmlFor="topic">Select topic</label>
+              <select
+                value={topicInput}
+                onChange={handleTopicChange}
+                id="topic"
+              >
                 <option value="any">Any topic</option>
                 {topics.map(({ slug }) => (
                   <option value={slug}>{capitalisedSlug(slug)}</option>
                 ))}
               </select>
-            </label>
-            <button type="submit">Search</button>
+              <button type="submit" className={submitButton}>
+                Search
+              </button>
+            </div>
           </form>
         </div>
       )}

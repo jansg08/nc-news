@@ -3,7 +3,7 @@
   text-decoration: underline;
   font-size: 0.75rem;
   height: 20px;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   background-color: var(--secondary-bg);
   padding: 1px 8px 2px 8px;
