@@ -4,6 +4,8 @@ import { PageHeader } from "./components/PageHeader";
 import { useState } from "react";
 import { ListContainer } from "./components/ListContainer";
 import { ArticleContainer } from "./components/ArticleContainer";
+import PopularIcon from "./icons/menu.svg?react";
+import TopicsIcon from "./icons/topics.svg?react";
 
 function App() {
   const [user, setUser] = useState({
@@ -20,8 +22,17 @@ function App() {
             path="/"
             element={
               <>
-                <PageHeader iconSrc="../icons/menu.svg" heading="Popular" />
-                <ListContainer />
+                <PageHeader headingIcon={<PopularIcon />} heading="Popular" />
+                <ListContainer type="articles" />
+              </>
+            }
+          />
+          <Route
+            path="/topics"
+            element={
+              <>
+                <PageHeader headingIcon={<TopicsIcon />} heading="Topics" />
+                <ListContainer type="topics" />
               </>
             }
           />
