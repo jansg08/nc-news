@@ -1,10 +1,10 @@
 import Popular from "../icons/popular.svg?react";
 import { pageHeader, headingItems } from "../styles/PageHeader.module.css";
-export const PageHeader = ({ iconSrc, heading, buttonIconSrc }) => {
+export const PageHeader = ({ headingIcon, heading, buttonIconSrc }) => {
   return (
     <header className={pageHeader}>
       <div className={headingItems}>
-        <Popular />
+        {headingIcon}
         <h2>{heading}</h2>
         {buttonIconSrc && (
           <button>

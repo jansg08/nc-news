@@ -158,7 +158,7 @@ export const ArticleContainer = () => {
             postStatus={postStatus}
           />
           {loadingComments && (
-            <LoadingWithBar currentlyLoading="comments" colour="#2bb634" />
+            <LoadingWithBar currentlyLoading="comments" colour="#a3adde" />
           )}
           {loadingComments ||
             comments.map((comment) => (
