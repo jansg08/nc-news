@@ -27,7 +27,7 @@ export const PageHeader = ({ headingIcon, heading, buttonIcon }) => {
     ["author", "Author"],
     ["created_at", "Date written"],
     ["votes", "Vote count"],
-    ["comments", "Comment count"],
+    ["comment_count", "Comment count"],
   ];
 
   useEffect(() => {
