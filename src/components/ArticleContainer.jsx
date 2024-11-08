@@ -35,7 +35,7 @@ export const ArticleContainer = () => {
   const [author, setAuthor] = useState({});
   const [comments, setComments] = useState([]);
   const [hasVoted, setHasVoted] = useLocalStorage(
-    `${user.username}hasVotedOn${article_id}`,
+    `${user?.username}hasVotedOn${article_id}`,
     0
   );
   const [votes, setVotes] = useState(0);
@@ -106,7 +106,7 @@ export const ArticleContainer = () => {
   }, []);
 
   const handleVote = (e) => {
-    if (!user.username) {
+    if (!user?.username) {
       navigate(`/login?redirect=${pathname.replace("/", "%2F")}`);
     }
     let comparison = Number(e.target.id || e.target.parentElement.id);
@@ -122,13 +122,13 @@ export const ArticleContainer = () => {
     e.preventDefault();
     setPostStatus("Posting");
     console.log({
-      username: user.username,
+      username: user?.username,
       body: commentInput,
     });
     console.log(`/articles/${article_id}/comments`);
     apiClient
       .post(`/articles/${article_id}/comments`, {
-        username: user.username,
+        username: user?.username,
         body: commentInput,
       })
       .then(({ data }) => {
@@ -154,7 +154,7 @@ export const ArticleContainer = () => {
               <div className={writtenBy}>
                 <span>Written by</span>
                 <span>
-                  {article.author === user.username ? "You" : author.name}
+                  {article.author === user?.username ? "You" : author.name}
                 </span>
               </div>
               <div className={votingBlock}>
@@ -162,7 +162,7 @@ export const ArticleContainer = () => {
                   <UpVote
                     id="1"
                     className={`${voteIcon} ${
-                      hasVoted === 1 && user.username && upVoted
+                      hasVoted === 1 && user?.username && upVoted
                     }`}
                   />
                 </button>
@@ -171,7 +171,7 @@ export const ArticleContainer = () => {
                   <DownVote
                     id="-1"
                     className={`${voteIcon} ${
-                      hasVoted === -1 && user.username && downVoted
+                      hasVoted === -1 && user?.username && downVoted
                     }`}
                   />
                 </button>
@@ -206,7 +206,7 @@ export const ArticleContainer = () => {
                   key={comment.comment_id}
                   comment={comment}
                   author={
-                    comment.author === user.username ? "You" : comment.author
+                    comment.author === user?.username ? "You" : comment.author
                   }
                   authorAvatar={commentAuthors[comment.author]?.avatar_url}
                 />
