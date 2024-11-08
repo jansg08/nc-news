@@ -1,10 +1,16 @@
 .container {
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 10px;
   background-color: var(--card-bg);
-  padding: 20px 0 0 0;
+  padding: 20px 20px;
   margin: 20px 0;
   border-radius: 15px;
   width: 100%;
+}
+
+.container > p {
+  margin: 0;
 }

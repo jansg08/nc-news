@@ -109,9 +109,13 @@ export const PageHeader = ({ headingIcon, heading, buttonIcon }) => {
                 onChange={handleTopicChange}
                 id="topic"
               >
-                <option value="any">Any topic</option>
-                {topics.map(({ slug }) => (
-                  <option value={slug}>{capitalisedSlug(slug)}</option>
+                <option key="any" value="any">
+                  Any topic
+                </option>
+                {topics?.map(({ slug }) => (
+                  <option key={slug} value={slug}>
+                    {capitalisedSlug(slug)}
+                  </option>
                 ))}
               </select>
               <button type="submit" className={submitButton}>

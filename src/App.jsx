@@ -7,6 +7,8 @@ import { ArticleContainer } from "./components/ArticleContainer";
 import PopularIcon from "./icons/popular.svg?react";
 import TopicsIcon from "./icons/topics.svg?react";
 import SortIcon from "./icons/sort.svg?react";
+import { ErrorCard } from "./components/ErrorCard";
+import { PaddedContainer } from "./components/PaddedContainer";
 
 function App() {
   const [user, setUser] = useState({
@@ -19,6 +21,14 @@ function App() {
       <Header />
       <main>
         <Routes>
+          <Route
+            path="*"
+            element={
+              <PaddedContainer>
+                <ErrorCard error="404" problem="page" />
+              </PaddedContainer>
+            }
+          />
           <Route
             path="/"
             element={
