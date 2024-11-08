@@ -1,4 +1,5 @@
 import { container } from "../styles/Loading.module.css";
+import { errorCode } from "../styles/ErrorCard.module.css";
 
 export const ErrorCard = ({ error = "Sorry!", problem }) => {
   let gif;
@@ -34,7 +35,7 @@ export const ErrorCard = ({ error = "Sorry!", problem }) => {
   }
   return (
     <div className={container}>
-      <h2>{error}</h2>
+      <h2 className={errorCode}>{error}</h2>
       <div>{gif}</div>
       <p>{msg}</p>
     </div>
