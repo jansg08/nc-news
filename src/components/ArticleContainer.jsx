@@ -14,7 +14,7 @@ import {
   voteIcon,
   upVoted,
   downVoted,
-  votes,
+  numberOfVotes,
 } from "../styles/ArticleContainer.module.css";
 import { CommentCard } from "./CommentCard";
 import UpVote from "../icons/up-vote.svg?react";
@@ -156,7 +156,7 @@ export const ArticleContainer = () => {
                     className={`${voteIcon} ${hasVoted === 1 && upVoted}`}
                   />
                 </button>
-                <span className={votes}>{votes}</span>
+                <span className={numberOfVotes}>{votes}</span>
                 <button id="-1" onClick={handleVote} className={voteButton}>
                   <DownVote
                     id="-1"
