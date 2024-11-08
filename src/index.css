@@ -57,6 +57,10 @@ ul {
   padding: 0;
 }
 
+p {
+  margin: 0;
+}
+
 .link {
   text-decoration: none;
   color: inherit;

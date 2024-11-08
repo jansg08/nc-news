@@ -1,12 +1,12 @@
 import { useState } from "react";
 
-export const useLocalStorage = (key, defaultVal) => {
+const useStorage = (type, key, defaultVal) => {
   const [storedVal, setStoredVal] = useState(() => {
-    const val = window.localStorage.getItem(key);
+    const val = window[type].getItem(key);
     if (val) {
       return JSON.parse(val);
     } else {
-      window.localStorage.setItem(key, JSON.stringify(defaultVal));
+      window[type].setItem(key, JSON.stringify(defaultVal));
       return defaultVal;
     }
   });
@@ -20,9 +20,17 @@ export const useLocalStorage = (key, defaultVal) => {
       } else if (typeof newVal === "object") {
         valToStore = { ...newVal };
       }
-      window.localStorage.setItem(key, JSON.stringify(valToStore));
+      window[type].setItem(key, JSON.stringify(valToStore));
       return valToStore;
     });
   };
   return [storedVal, setValue];
+};
+
+export const useLocalStorage = (key, defaultVal) => {
+  return useStorage("localStorage", key, defaultVal);
+};
+
+export const useSessionStorage = (key, defaultVal) => {
+  return useStorage("sessionStorage", key, defaultVal);
 };

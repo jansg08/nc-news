@@ -12,6 +12,21 @@
   z-index: 10;
 }
 
-.navbar_lastItem {
+.navbarLastItem {
+  margin-left: auto;
+}
+
+.loginButton {
+  box-sizing: border-box;
+  text-decoration: underline;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--secondary-bg);
+  background-color: var(--primary);
+  padding: 1px 8px 2px 8px;
+  border: none;
+  border-radius: 15px;
   margin-left: auto;
 }
