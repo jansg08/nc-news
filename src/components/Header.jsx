@@ -25,7 +25,7 @@ export const Header = () => {
         <Link className="link" to="/">
           <h1>NC News</h1>
         </Link>
-        {user.username ? (
+        {user?.username ? (
           <img
             onClick={handleAvatarClick}
             className={`${navbarLastItem} avatar avatar-big`}
