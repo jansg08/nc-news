@@ -43,8 +43,8 @@ export const ListContainer = ({ type }) => {
     <div className={listContainer}>
       {error}
       {loading && <LoadingWithGrid currentlyLoading={type} colour="#a3adde" />}
-      {loading ||
-        error ||
+      {!loading &&
+        !error &&
         list.map((item) => {
           switch (type) {
             case "articles":

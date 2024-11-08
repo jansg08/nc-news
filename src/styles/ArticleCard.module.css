@@ -44,7 +44,6 @@
 
 .tag {
   box-sizing: border-box;
-  text-decoration: underline;
   font-size: 0.75rem;
   height: 20px;
   display: flex;
@@ -54,8 +53,12 @@
   border-radius: 10px;
 }
 
+.tagLink {
+  text-decoration: underline;
+}
+
 .tagIcon {
-  height: 15px;
+  width: 15px;
   margin-right: 3px;
   margin-left: -2px;
 }
