@@ -25,6 +25,7 @@ import { UserContext } from "../contexts/User";
 import { LoadingWithHash } from "./LoadingWithHash";
 import { LoadingWithBar } from "./LoadingWithBar";
 import { AddComment } from "./AddComment";
+import { ErrorCard } from "./ErrorCard";
 
 export const ArticleContainer = () => {
   const { article_id } = useParams();
@@ -36,6 +37,8 @@ export const ArticleContainer = () => {
   const [votes, setVotes] = useState(0);
   const [loadingArticle, setLoadingArticle] = useState(true);
   const [loadingComments, setLoadingComments] = useState(true);
+  const [articleError, setArticleError] = useState(null);
+  const [commentError, setCommentError] = useState(null);
   const [commentInput, setCommentInput] = useState("");
   const [postStatus, setPostStatus] = useState("Post");
   const [commentAuthors, setCommentAuthors] = useState({});
@@ -65,14 +68,35 @@ export const ArticleContainer = () => {
         setLoadingComments(false);
         setAuthor(authorData.data.user);
         setComments(comments);
-        return Promise.all(usersToFetch);
+        return Promise.allSettled(usersToFetch);
       })
       .then((usersData) => {
         const usersByUsername = {};
         usersData.forEach(
-          ({ data }) => (usersByUsername[data.user.username] = data.user)
+          (user) =>
+            (usersByUsername[user.value.data.user.username] =
+              user.status === "fulfilled" ? user.value.data.user : null)
         );
         setCommentAuthors(usersByUsername);
+      })
+      .catch((err) => {
+        if (err.message.startsWith("timeout")) {
+          setArticleError(<ErrorCard error="Timeout" />);
+        } else if (err.response.status === 400) {
+          setArticleError(<ErrorCard error="400" />);
+        } else if (
+          err.response.status === 404 &&
+          !err.request.responseURL.includes("users")
+        ) {
+          if (err.request.responseURL.includes("comments")) {
+            setLoadingComments(false);
+            setCommentError(<ErrorCard error="404" problem={"comments"} />);
+          } else {
+            setLoadingComments(false);
+            setLoadingArticle(false);
+            setArticleError(<ErrorCard error="404" problem={"article"} />);
+          }
+        }
       });
   }, []);
 
@@ -109,10 +133,11 @@ export const ArticleContainer = () => {
 
   return (
     <div className={articleContainer}>
+      {articleError}
       {loadingArticle && (
         <LoadingWithHash currentlyLoading="article" colour="#a3adde" />
       )}
-      {loadingArticle || (
+      {!loadingArticle && !articleError && (
         <>
           <header className={articleHeader}>
             <h2>{article.title}</h2>
@@ -146,33 +171,37 @@ export const ArticleContainer = () => {
           <p>{article.body}</p>
         </>
       )}
-      <div>
-        <hr className="h-rule" />
-        <h2 className={commentsHeading}>Comments</h2>
-        <ul className={commentsList}>
-          <AddComment
-            user={user}
-            handleSubmit={handleCommentSubmit}
-            commentInput={commentInput}
-            setCommentInput={setCommentInput}
-            postStatus={postStatus}
-          />
-          {loadingComments && (
-            <LoadingWithBar currentlyLoading="comments" colour="#a3adde" />
-          )}
-          {loadingComments ||
-            comments.map((comment) => (
-              <CommentCard
-                key={comment.comment_id}
-                comment={comment}
-                author={
-                  comment.author === user.username ? "You" : comment.author
-                }
-                authorAvatar={commentAuthors[comment.author]?.avatar_url}
-              />
-            ))}
-        </ul>
-      </div>
+      {!articleError && (
+        <div>
+          <hr className="h-rule" />
+          <h2 className={commentsHeading}>Comments</h2>
+          <ul className={commentsList}>
+            <AddComment
+              user={user}
+              handleSubmit={handleCommentSubmit}
+              commentInput={commentInput}
+              setCommentInput={setCommentInput}
+              postStatus={postStatus}
+            />
+            {commentError}
+            {loadingComments && (
+              <LoadingWithBar currentlyLoading="comments" colour="#a3adde" />
+            )}
+            {loadingComments ||
+              commentError ||
+              comments.map((comment) => (
+                <CommentCard
+                  key={comment.comment_id}
+                  comment={comment}
+                  author={
+                    comment.author === user.username ? "You" : comment.author
+                  }
+                  authorAvatar={commentAuthors[comment.author]?.avatar_url}
+                />
+              ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };

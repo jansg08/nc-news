@@ -1,5 +1,5 @@
 .articleContainer {
-  padding: 25px;
+  padding: var(--default-padding);
 }
 
 .articleHeader {
