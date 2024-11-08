@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { apiClient } from "../utils/apiClient";
-import { useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import {
   articleContainer,
   articleHeader,
@@ -19,9 +19,9 @@ import {
 import { CommentCard } from "./CommentCard";
 import UpVote from "../icons/up-vote.svg?react";
 import DownVote from "../icons/down-vote.svg?react";
-import { useLocalStorage } from "../hooks/useLocalStorage";
+import { useLocalStorage } from "../hooks/useStorage";
 import { patchArticleVotes } from "../utils/patchArticleVotes";
-import { UserContext } from "../contexts/User";
+import { useAuth } from "../hooks/useAuth";
 import { LoadingWithHash } from "./LoadingWithHash";
 import { LoadingWithBar } from "./LoadingWithBar";
 import { AddComment } from "./AddComment";
@@ -29,11 +29,15 @@ import { ErrorCard } from "./ErrorCard";
 
 export const ArticleContainer = () => {
   const { article_id } = useParams();
-  const { user } = useContext(UserContext);
+  const { user } = useAuth();
+  const { pathname } = useLocation();
   const [article, setArticle] = useState({});
   const [author, setAuthor] = useState({});
   const [comments, setComments] = useState([]);
-  const [hasVoted, setHasVoted] = useLocalStorage(`hasVoted${article_id}`, 0);
+  const [hasVoted, setHasVoted] = useLocalStorage(
+    `${user.username}hasVotedOn${article_id}`,
+    0
+  );
   const [votes, setVotes] = useState(0);
   const [loadingArticle, setLoadingArticle] = useState(true);
   const [loadingComments, setLoadingComments] = useState(true);
@@ -42,7 +46,7 @@ export const ArticleContainer = () => {
   const [commentInput, setCommentInput] = useState("");
   const [postStatus, setPostStatus] = useState("Post");
   const [commentAuthors, setCommentAuthors] = useState({});
-
+  const navigate = useNavigate();
   useEffect(() => {
     setLoadingArticle(true);
     setLoadingComments(true);
@@ -101,6 +105,9 @@ export const ArticleContainer = () => {
   }, []);
 
   const handleVote = (e) => {
+    if (!user.username) {
+      navigate(`/login?redirect=${pathname.replace("/", "%2F")}`);
+    }
     let comparison = Number(e.target.id || e.target.parentElement.id);
     if (hasVoted === comparison) {
       comparison = -comparison;
