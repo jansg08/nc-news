@@ -39,15 +39,30 @@ export const PageHeader = ({ headingIcon, heading, buttonIcon }) => {
   const handleClick = () => {
     setShowSortOptions(!showSortOptions);
   };
-  const handleSortByChange = (e) => setSortByInput(e.target.value);
-  const handleOrderChange = (e) => setOrderInput(e.target.value);
-  const handleTopicChange = (e) => setTopicInput(e.target.value);
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSortByChange = (e) => {
+    const sortVal = e.target.value;
+    setSortByInput(e.target.value);
+    fetchNewList({ sortVal });
+  };
+  const handleOrderChange = (e) => {
+    const orderVal = e.target.value;
+    setOrderInput(e.target.value);
+    fetchNewList({ orderVal });
+  };
+  const handleTopicChange = (e) => {
+    const topicVal = e.target.value;
+    setTopicInput(topicVal);
+    fetchNewList({ topicVal });
+  };
+  const fetchNewList = ({
+    sortVal = sortByInput,
+    orderVal = orderInput,
+    topicVal = topicInput,
+  }) => {
     const newSearchParams = {
-      sort_by: sortByInput,
-      order: orderInput,
-      topic: topicInput === "any" ? "" : topicInput,
+      sort_by: sortVal,
+      order: orderVal,
+      topic: topicVal === "any" ? "" : topicInput,
     };
     setSearchParams(newSearchParams);
   };
@@ -64,7 +79,7 @@ export const PageHeader = ({ headingIcon, heading, buttonIcon }) => {
       </div>
       {showSortOptions && pathname === "/" && (
         <div className={`${optionsForm} ${articleCard}`}>
-          <form onSubmit={handleSubmit}>
+          <form>
             <div className={formRow}>
               <label htmlFor="sortBy">Sort by</label>
               <select
@@ -119,9 +134,6 @@ export const PageHeader = ({ headingIcon, heading, buttonIcon }) => {
                   </option>
                 ))}
               </select>
-              <button type="submit" className={submitButton}>
-                Search
-              </button>
             </div>
           </form>
         </div>
