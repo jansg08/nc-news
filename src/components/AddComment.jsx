@@ -17,10 +17,10 @@ export const AddComment = ({
   return (
     <li>
       <form onSubmit={handleSubmit} className={commentCard}>
-        {user.username ? (
+        {user?.username ? (
           <>
             <div className={commentHeader}>
-              <img src={user.avatar_url} className="avatar avatar-small" />
+              <img src={user?.avatar_url} className="avatar avatar-small" />
               <span>You</span>
               <button
                 disabled={postStatus === "Posting"}
