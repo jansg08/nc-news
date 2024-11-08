@@ -1,4 +1,4 @@
-import { useSearchParams } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 import AscendingIcon from "../icons/up-vote.svg?react";
 import DescendingIcon from "../icons/down-vote.svg?react";
 import {
@@ -21,6 +21,7 @@ export const PageHeader = ({ headingIcon, heading, buttonIcon }) => {
   const [orderInput, setOrderInput] = useState("desc");
   const [topicInput, setTopicInput] = useState("any");
   const [topics, setTopics] = useState();
+  const { pathname } = useLocation();
   const columns = [
     ["title", "Title"],
     ["topic", "Topic"],
@@ -61,7 +62,7 @@ export const PageHeader = ({ headingIcon, heading, buttonIcon }) => {
           </button>
         )}
       </div>
-      {showSortOptions && (
+      {showSortOptions && pathname === "/" && (
         <div className={`${optionsForm} ${articleCard}`}>
           <form onSubmit={handleSubmit}>
             <div className={formRow}>

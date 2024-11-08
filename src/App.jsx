@@ -9,7 +9,7 @@ import { PaddedContainer } from "./components/PaddedContainer";
 import { Login } from "./components/Login";
 import { AuthProvider } from "./hooks/useAuth.jsx";
 
-import PopularIcon from "./icons/popular.svg?react";
+import ArticleIcon from "./icons/article.svg?react";
 import TopicsIcon from "./icons/topics.svg?react";
 import SortIcon from "./icons/sort.svg?react";
 import LoginIcon from "./icons/login.svg?react";
@@ -38,7 +38,7 @@ function App() {
             element={
               <>
                 <PageHeader
-                  headingIcon={<PopularIcon className="icon icon-big" />}
+                  headingIcon={<ArticleIcon className="icon icon-big" />}
                   heading="Popular"
                   buttonIcon={<SortIcon className="icon icon-big" />}
                 />

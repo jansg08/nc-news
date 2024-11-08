@@ -41,7 +41,7 @@ export const AddComment = ({
             />
           </>
         ) : (
-          <p style={{ margin: "0" }}>
+          <p>
             Please{" "}
             <Link
               to={`/login?redirect=${pathname.replace("/", "%2F")}`}

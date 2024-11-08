@@ -1,7 +1,11 @@
 import { useContext } from "react";
 import { useAuth } from "../hooks/useAuth";
 import MenuIcon from "../icons/menu.svg?react";
-import styles from "../styles/Header.module.css";
+import {
+  navbar,
+  navbarLastItem,
+  loginButton,
+} from "../styles/Header.module.css";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 export const Header = () => {
@@ -16,19 +20,21 @@ export const Header = () => {
   };
   return (
     <header>
-      <nav className={styles.navbar}>
+      <nav className={navbar}>
         <MenuIcon className="icon icon-big" />
         <Link className="link" to="/">
-          <h1 className="styles.title">NC News</h1>
+          <h1>NC News</h1>
         </Link>
         {user.username ? (
           <img
             onClick={handleAvatarClick}
-            className={`${styles.navbar_lastItem} avatar avatar-big`}
+            className={`${navbarLastItem} avatar avatar-big`}
             src={user.avatar_url}
           />
         ) : (
-          <button onClick={handleLoginButton}>Log in</button>
+          <button onClick={handleLoginButton} className={loginButton}>
+            Log in
+          </button>
         )}
       </nav>
     </header>

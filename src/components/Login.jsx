@@ -2,6 +2,11 @@ import { useEffect, useState } from "react";
 import { apiClient } from "../utils/apiClient";
 import { useAuth } from "../hooks/useAuth.jsx";
 import { useSearchParams } from "react-router-dom";
+import {
+  loginForm,
+  userSelect,
+  submitButton,
+} from "../styles/Login.module.css";
 
 export const Login = () => {
   const [users, setUsers] = useState([]);
@@ -25,9 +30,13 @@ export const Login = () => {
     );
   };
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className={loginForm}>
       <label>Select a user to impersonate</label>
-      <select value={userInput} onChange={handleUserChange}>
+      <select
+        value={userInput}
+        onChange={handleUserChange}
+        className={userSelect}
+      >
         <option key="random" value="random">
           Random User
         </option>
@@ -37,7 +46,15 @@ export const Login = () => {
           </option>
         ))}
       </select>
-      <button type="submit">Log in</button>
+      <button type="submit" className={submitButton}>
+        Log in
+      </button>
+      <p>
+        <em>
+          You can log out at any time by clicking on your avatar in the top
+          right
+        </em>
+      </p>
     </form>
   );
 };

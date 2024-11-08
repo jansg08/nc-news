@@ -85,6 +85,7 @@ export const ArticleContainer = () => {
       })
       .catch((err) => {
         if (err.message.startsWith("timeout")) {
+          setLoadingArticle(false);
           setArticleError(<ErrorCard error="Timeout" />);
         } else if (err.response.status === 400) {
           setArticleError(<ErrorCard error="400" />);
@@ -160,14 +161,18 @@ export const ArticleContainer = () => {
                 <button onClick={handleVote} className={voteButton} id="1">
                   <UpVote
                     id="1"
-                    className={`${voteIcon} ${hasVoted === 1 && upVoted}`}
+                    className={`${voteIcon} ${
+                      hasVoted === 1 && user.username && upVoted
+                    }`}
                   />
                 </button>
                 <span className={numberOfVotes}>{votes}</span>
                 <button id="-1" onClick={handleVote} className={voteButton}>
                   <DownVote
                     id="-1"
-                    className={`${voteIcon} ${hasVoted === -1 && downVoted}`}
+                    className={`${voteIcon} ${
+                      hasVoted === -1 && user.username && downVoted
+                    }`}
                   />
                 </button>
               </div>
