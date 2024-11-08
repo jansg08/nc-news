@@ -23,6 +23,7 @@ export const ErrorCard = ({ error = "Sorry!", problem }) => {
       );
       msg =
         "Sorry, there was an issue with this request, if you just filled in a form, please double check the details and retry the request.";
+      break;
     case "Timeout":
       gif = (
         <iframe
@@ -32,6 +33,7 @@ export const ErrorCard = ({ error = "Sorry!", problem }) => {
       );
       msg =
         "Sorry, the server was unable to respond in time. This issue can usually be fixed by making the request again in 30s to a minute.";
+      break;
   }
   return (
     <div className={container}>

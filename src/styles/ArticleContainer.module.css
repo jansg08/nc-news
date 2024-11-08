@@ -53,6 +53,10 @@
   width: 100%;
 }
 
+.articleBody {
+  margin: 20px 0;
+}
+
 .commentsHeading {
   margin-top: 20px;
 }

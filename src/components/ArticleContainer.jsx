@@ -15,6 +15,7 @@ import {
   upVoted,
   downVoted,
   numberOfVotes,
+  articleBody,
 } from "../styles/ArticleContainer.module.css";
 import { CommentCard } from "./CommentCard";
 import UpVote from "../icons/up-vote.svg?react";
@@ -87,7 +88,7 @@ export const ArticleContainer = () => {
         if (err.message.startsWith("timeout")) {
           setLoadingArticle(false);
           setArticleError(<ErrorCard error="Timeout" />);
-        } else if (err.response.status === 400) {
+        } else if (err.response?.status === 400) {
           setArticleError(<ErrorCard error="400" />);
         } else if (
           err.response.status === 404 &&
@@ -180,7 +181,7 @@ export const ArticleContainer = () => {
             <img src={article.article_img_url} className={articleImg} />
             <hr className="h-rule" />
           </header>
-          <p>{article.body}</p>
+          <p className={articleBody}>{article.body}</p>
         </>
       )}
       {!articleError && (
