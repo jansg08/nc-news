@@ -2,7 +2,7 @@
 
 ## Demo
 
-You can have a look at the hosted project [here](https://nc-news.pages.dev/)
+You can visit the hosted project [here](https://nc-news.pages.dev/)
 
 ## About
 
