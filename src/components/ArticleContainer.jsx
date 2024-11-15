@@ -122,11 +122,6 @@ export const ArticleContainer = () => {
   const handleCommentSubmit = (e) => {
     e.preventDefault();
     setPostStatus("Posting");
-    console.log({
-      username: user?.username,
-      body: commentInput,
-    });
-    console.log(`/articles/${article_id}/comments`);
     apiClient
       .post(`/articles/${article_id}/comments`, {
         username: user?.username,
