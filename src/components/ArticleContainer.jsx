@@ -144,7 +144,7 @@ export const ArticleContainer = () => {
       })
       .then(({ data }) => {
         setCommentInput("");
-        setPostStatus("Posted 😁");
+        setPostStatus("Posted");
         setComments((currComments) => [data.comment, ...currComments]);
         setTimeout(() => setPostStatus("Post"), 5000);
       });

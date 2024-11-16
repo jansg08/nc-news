@@ -15,11 +15,13 @@
 
 .submitButton:disabled {
   filter: brightness(50%);
+  text-decoration: none;
 }
 
 .posted {
   color: black;
   background-color: rgb(17, 172, 17);
+  text-decoration: none;
 }
 
 .commentBody {

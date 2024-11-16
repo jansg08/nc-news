@@ -26,7 +26,7 @@ export const AddComment = ({
                 disabled={postStatus === "Posting"}
                 type="submit"
                 className={`${
-                  postStatus === "Posted 😁" && posted
+                  postStatus === "Posted" && posted
                 } ${submitButton}`}
               >
                 {postStatus}
