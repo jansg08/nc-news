@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { apiClient } from "../utils/apiClient";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import {
   articleContainer,
   articleHeader,
@@ -27,6 +27,8 @@ import { LoadingWithHash } from "./LoadingWithHash";
 import { LoadingWithBar } from "./LoadingWithBar";
 import { AddComment } from "./AddComment";
 import { ErrorCard } from "./ErrorCard";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const ArticleContainer = () => {
   const { article_id } = useParams();
@@ -108,15 +110,28 @@ export const ArticleContainer = () => {
 
   const handleVote = (e) => {
     if (!user?.username) {
-      navigate(`/login?redirect=${pathname.replace("/", "%2F")}`);
+      toast(() => (
+        <div>
+          Please{" "}
+          <Link
+            to={`/login?redirect=${pathname.replace("/", "%2F")}`}
+            className="link"
+            style={{ textDecoration: "underline" }}
+          >
+            log in
+          </Link>{" "}
+          to vote
+        </div>
+      ));
+    } else {
+      let comparison = Number(e.target.id || e.target.parentElement.id);
+      if (hasVoted === comparison) {
+        comparison = -comparison;
+      } else if (hasVoted === -comparison) {
+        comparison *= 2;
+      }
+      patchArticleVotes(article.article_id, comparison, setHasVoted, setVotes);
     }
-    let comparison = Number(e.target.id || e.target.parentElement.id);
-    if (hasVoted === comparison) {
-      comparison = -comparison;
-    } else if (hasVoted === -comparison) {
-      comparison *= 2;
-    }
-    patchArticleVotes(article.article_id, comparison, setHasVoted, setVotes);
   };
 
   const handleCommentSubmit = (e) => {
@@ -137,6 +152,7 @@ export const ArticleContainer = () => {
 
   return (
     <div className={articleContainer}>
+      <ToastContainer />
       {articleError}
       {loadingArticle && (
         <LoadingWithHash currentlyLoading="article" colour="#a3adde" />
