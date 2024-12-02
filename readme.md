@@ -10,7 +10,7 @@ This project consists of a React-based frontend to deliver data from my earlier 
 
 ## Running it locally
 
-The project uses Vite to manage to development and build process. To run it on your own system follow these steps:
+The project uses Vite to manage the development and build process. To run it on your own system follow these steps:
 1. Clone the project with the `git clone` command, or directly into your chosen editor.
 2. `cd` to the projects directory and and run `npm i` to install the relevant dependencies.
 3. To view the app locally run `npm run dev`, or to build the project, run `npm run build`.
