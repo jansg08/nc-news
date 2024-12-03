@@ -1,4 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Istok+Web:ital,wght@0,400;0,700;1,400;1,700&family=Jacquard+24&family=Silkscreen:wght@400;700&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
   --primary: #edeaea;
@@ -98,4 +101,16 @@ p {
   border: 1.5px solid var(--primary);
   border-radius: 1.5px;
   margin: 0;
+}
+
+.button {
+  @apply rounded-full inline-flex items-center justify-center px-2.5 border-none py-1.5;
+}
+
+.button-white {
+  @apply text-secondary-bg bg-primary;
+}
+
+.button-black {
+  @apply text-primary bg-secondary-bg;
 }

@@ -38,7 +38,7 @@ export const ListContainer = ({ type }) => {
           setError(<ErrorCard error="404" problem={type} />);
         }
       });
-  }, [searchParams]);
+  }, [searchParams, type]);
   return (
     <div className={listContainer}>
       {error}
