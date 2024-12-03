@@ -9,6 +9,7 @@ export default {
         "card-bg": "#5b5252",
         background: "#343434",
         "secondary-bg": "#111111",
+        accent: "#a3adde",
       },
       fontFamily: {
         display: ["Istok Web", "sans-serif"],

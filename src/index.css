@@ -102,3 +102,15 @@ p {
   border-radius: 1.5px;
   margin: 0;
 }
+
+.button {
+  @apply rounded-full inline-flex items-center justify-center px-2.5 border-none py-1.5;
+}
+
+.button-white {
+  @apply text-secondary-bg bg-primary;
+}
+
+.button-black {
+  @apply text-primary bg-secondary-bg;
+}
