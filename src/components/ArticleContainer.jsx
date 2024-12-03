@@ -110,13 +110,13 @@ export const ArticleContainer = () => {
 
   const handleVote = (e) => {
     if (!user?.username) {
+      toast.dismiss();
       toast(() => (
         <div>
           Please{" "}
           <Link
             to={`/login?redirect=${pathname.replace("/", "%2F")}`}
-            className="link"
-            style={{ textDecoration: "underline" }}
+            className="link underline"
           >
             log in
           </Link>{" "}
@@ -152,7 +152,7 @@ export const ArticleContainer = () => {
 
   return (
     <div className={articleContainer}>
-      <ToastContainer />
+      <ToastContainer theme="dark" closeOnClick autoClose="4000" limit="1" />
       {articleError}
       {loadingArticle && (
         <LoadingWithHash currentlyLoading="article" colour="#a3adde" />
