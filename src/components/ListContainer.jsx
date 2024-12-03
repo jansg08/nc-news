@@ -15,9 +15,9 @@ export const ListContainer = ({ type }) => {
   useEffect(() => {
     const options = {
       params: {
-        sort_by: searchParams.get("sort_by") || "votes",
-        topic: searchParams.get("topic") || null,
-        order: searchParams.get("order") || null,
+        sort_by: searchParams.get("sort_by"),
+        topic: searchParams.get("topic"),
+        order: searchParams.get("order"),
       },
     };
     setLoading(true);

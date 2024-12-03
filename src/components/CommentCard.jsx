@@ -1,4 +1,9 @@
-import { commentCard, commentHeader } from "../styles/CommentCard.module.css";
+import {
+  commentCard,
+  commentHeader,
+  commentCard_deleted,
+  commentHeader_deleted,
+} from "../styles/CommentCard.module.css";
 import { submitButton } from "../styles/AddComment.module.css";
 import { useState } from "react";
 import { apiClient } from "../utils/apiClient";
@@ -10,19 +15,25 @@ export const CommentCard = ({ comment, author, authorAvatar }) => {
     setDeletedStatus(1);
     apiClient.delete(`/comments/${comment.comment_id}`).then(() => {
       setDeletedStatus(0);
-      setTimeout(() => setDeletedStatus(-1), 5000);
+      setTimeout(() => setDeletedStatus(-1), 4000);
     });
   };
 
-  if (deletedStatus > 0) {
+  if (deletedStatus > -1) {
     return (
-      <li className={commentCard}>
-        <div className={commentHeader}>
+      <li
+        className={`${commentCard} ${deletedStatus < 1 && commentCard_deleted}`}
+      >
+        <div
+          className={`${commentHeader} ${
+            deletedStatus < 2 && commentHeader_deleted
+          }`}
+        >
           <img src={authorAvatar} className="avatar avatar-small" />
           <span>{author}</span>
           {author === "You" && (
             <button
-              disabled={deletedStatus === -1}
+              disabled={deletedStatus < 2}
               onClick={handleDelete}
               className={submitButton}
             >
@@ -31,13 +42,9 @@ export const CommentCard = ({ comment, author, authorAvatar }) => {
           )}
           <span>Votes: {votes}</span>
         </div>
-        {body}
-      </li>
-    );
-  } else if (!deletedStatus) {
-    return (
-      <li className="commentCard">
-        <p>Comment deleted. This message will disappear automatically</p>
+        {deletedStatus > 0
+          ? body
+          : "Comment deleted. This message will disappear shortly."}
       </li>
     );
   }

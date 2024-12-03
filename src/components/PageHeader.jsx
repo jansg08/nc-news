@@ -62,7 +62,7 @@ export const PageHeader = ({ headingIcon, heading, buttonIcon }) => {
     const newSearchParams = {
       sort_by: sortVal,
       order: orderVal,
-      topic: topicVal === "any" ? "" : topicInput,
+      topic: topicVal === "any" ? "" : topicVal,
     };
     setSearchParams(newSearchParams);
   };
@@ -88,7 +88,9 @@ export const PageHeader = ({ headingIcon, heading, buttonIcon }) => {
                 id="sortBy"
               >
                 {columns.map(([value, innerText]) => (
-                  <option value={value}>{innerText}</option>
+                  <option key={value} value={value}>
+                    {innerText}
+                  </option>
                 ))}
               </select>
               <div className={orderRadioGroup}>

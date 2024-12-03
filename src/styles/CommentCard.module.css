@@ -14,3 +14,13 @@
   gap: 10px;
   font-size: 0.95rem;
 }
+
+.commentHeader_deleted > :not(button) {
+  font-style: normal;
+  text-decoration: line-through;
+}
+
+.commentCard_deleted {
+  font-style: italic;
+  filter: brightness(75%);
+}
