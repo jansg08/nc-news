@@ -23,7 +23,7 @@ function App() {
   return (
     <AuthProvider>
       <Header />
-      <main>
+      <main className="px-6 pt-[73px] xl:w-[1232px] xl:px-0 xl:mx-auto">
         <Routes>
           <Route
             path="*"

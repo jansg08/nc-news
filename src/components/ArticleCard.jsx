@@ -15,7 +15,7 @@ import AuthorIcon from "../icons/author.svg?react";
 import VoteIcon from "../icons/votes.svg?react";
 import CommentIcon from "../icons/comments.svg?react";
 
-export const ArticleCard = ({ article }) => {
+export const ArticleCard = ({ article, firstItem }) => {
   const {
     article_id,
     title,
@@ -26,16 +26,28 @@ export const ArticleCard = ({ article }) => {
     comment_count,
   } = article;
   return (
-    <div className={articleCard}>
+    <div
+      className={`box-border w-full h-full bg-card-bg rounded-[15px] p-[15px] flex flex-col gap-2 shadow-card ${
+        firstItem && "row-span-2 sm:col-span-2"
+      }`}
+    >
       <div className={imgAndTitle}>
-        <Link to={`/articles/${article_id}`} className={imgLink + " link"}>
+        <Link
+          to={`/articles/${article_id}`}
+          className={`link w-1/2 ${firstItem && "sm:w-3/4"}`}
+        >
           <img className={articleImg} src={article_img_url} />
         </Link>
-        <Link to={`/articles/${article_id}`} className={titleLink + " link"}>
-          <h3 className={articleTitle}>{title}</h3>
+        <Link
+          to={`/articles/${article_id}`}
+          className={`link w-1/2 ${firstItem && "sm:w-1/4"}`}
+        >
+          <p className={`text-left text-xl ${firstItem && "sm:text-3xl"}`}>
+            {title}
+          </p>
         </Link>
       </div>
-      <div className={tags}>
+      <div className="flex gap-[5px] items-end h-full">
         <span className={`${tag} ${tagLink}`}>
           <Link to={`/?topic=${topic}`} className="link">
             {topic}
