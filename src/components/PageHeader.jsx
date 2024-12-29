@@ -67,7 +67,7 @@ export const PageHeader = ({ headingIcon, heading, buttonIcon }) => {
     setSearchParams(newSearchParams);
   };
   return (
-    <header className={pageHeader}>
+    <header className="w-full">
       <div className={headingItems}>
         {headingIcon}
         <h2>{capitalisedSlug(searchParams.get("topic")) || heading}</h2>

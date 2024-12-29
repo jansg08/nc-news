@@ -151,7 +151,7 @@ export const ArticleContainer = () => {
   };
 
   return (
-    <div className={articleContainer}>
+    <div className="py-6">
       <ToastContainer theme="dark" closeOnClick autoClose="4000" limit="1" />
       {articleError}
       {loadingArticle && (
