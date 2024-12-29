@@ -40,15 +40,21 @@ export const ListContainer = ({ type }) => {
       });
   }, [searchParams, type]);
   return (
-    <div className={listContainer}>
+    <div className="items-center gap-5 py-6 grid grid-cols-articles auto-rows-auto">
       {error}
       {loading && <LoadingWithGrid currentlyLoading={type} colour="#a3adde" />}
       {!loading &&
         !error &&
-        list.map((item) => {
+        list.map((item, i) => {
           switch (type) {
             case "articles":
-              return <ArticleCard key={item.article_id} article={item} />;
+              return (
+                <ArticleCard
+                  key={item.article_id}
+                  article={item}
+                  firstItem={i === 0}
+                />
+              );
             case "topics":
               return <TopicCard key={item.slug} topic={item} />;
           }
