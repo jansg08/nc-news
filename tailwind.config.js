@@ -15,6 +15,12 @@ export default {
         display: ["Istok Web", "sans-serif"],
         title: ["Jacquard 24", "system-ui"],
       },
+      gridTemplateColumns: {
+        articles: "repeat(auto-fit, minmax(20rem, 1fr))",
+      },
+      boxShadow: {
+        card: "0 0 6px 3px rgb(0 0 0 / 25%)",
+      },
     },
   },
   plugins: [],
