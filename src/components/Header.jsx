@@ -20,7 +20,7 @@ export const Header = () => {
     logout(false);
   };
   return (
-    <header className="flex flex-col gap-2 box-border rounded-b-lg w-screen py-3 px-6 bg-secondary-bg fixed z-10 shadow-2xl">
+    <header className="flex flex-col gap-2 box-border rounded-b-lg w-screen py-3 px-6 bg-secondary-bg fixed z-10 shadow-2xl xl:px-[calc((100vw-1232px)/2)] items-center">
       <div className="flex items-center gap-2 w-full">
         <button onClick={() => setShowNav(!showNav)}>
           <MenuIcon className="icon icon-big" />
