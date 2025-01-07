@@ -18,6 +18,8 @@ export const ListContainer = ({ type }) => {
         sort_by: searchParams.get("sort_by"),
         topic: searchParams.get("topic"),
         order: searchParams.get("order"),
+        limit: 15,
+        p: searchParams.get("clusters"),
       },
     };
     setLoading(true);
