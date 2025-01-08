@@ -66,12 +66,11 @@ p {
 }
 
 .icon {
-  fill: var(--primary);
+  @apply fill-primary;
 }
 
 .icon-big {
-  width: var(--icon-lg);
-  height: var(--icon-lg);
+  @apply w-8 h-8;
 }
 
 .icon-small {
@@ -109,4 +108,12 @@ p {
 
 .button-black {
   @apply text-primary bg-secondary-bg;
+}
+
+.big-card {
+  @apply box-border w-full h-full bg-card-bg rounded-xl p-4 flex flex-col gap-2 shadow-card;
+}
+
+.select-rounded {
+  @apply box-border inline-flex items-center text-inherit bg-secondary-bg px-2 pt-[1px] rounded-md ml-2.5 outline-none border-transparent border-r-8;
 }
