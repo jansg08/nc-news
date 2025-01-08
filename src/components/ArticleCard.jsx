@@ -26,11 +26,7 @@ export const ArticleCard = ({ article, firstItem }) => {
     comment_count,
   } = article;
   return (
-    <div
-      className={`box-border w-full h-full bg-card-bg rounded-[15px] p-[15px] flex flex-col gap-2 shadow-card ${
-        firstItem && "row-span-2 sm:col-span-2"
-      }`}
-    >
+    <div className={`big-card ${firstItem && "row-span-2 sm:col-span-2"}`}>
       <div className={imgAndTitle}>
         <Link
           to={`/articles/${article_id}`}
