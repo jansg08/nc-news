@@ -16,7 +16,7 @@ export const ListContainer = ({ type }) => {
     const options = {
       params: {
         sort_by: searchParams.get("sort_by"),
-        topic: searchParams.get("topic"),
+        topic: searchParams.get("topic") || null,
         order: searchParams.get("order"),
         limit: 15,
         p: searchParams.get("clusters"),
@@ -35,7 +35,7 @@ export const ListContainer = ({ type }) => {
         if (err.message.startsWith("timeout")) {
           setError(<ErrorCard error="Timeout" />);
         } else if (err.response.status === 400) {
-          setError(<ErrorCard error="400" />);
+          setError(<ErrorCard error="404" problem={type} />);
         } else if (err.response.status === 404) {
           setError(<ErrorCard error="404" problem={type} />);
         }
