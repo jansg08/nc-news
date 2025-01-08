@@ -9,6 +9,8 @@ import { PaddedContainer } from "./components/PaddedContainer";
 import { Login } from "./components/Login";
 import { AuthProvider } from "./hooks/useAuth.jsx";
 
+import { FaSliders } from "react-icons/fa6";
+
 import ArticleIcon from "./icons/article.svg?react";
 import TopicsIcon from "./icons/topics.svg?react";
 import SortIcon from "./icons/sort.svg?react";
@@ -40,7 +42,7 @@ function App() {
                 <PageHeader
                   headingIcon={<ArticleIcon className="icon icon-big" />}
                   heading="Popular"
-                  buttonIcon={<SortIcon className="icon icon-big" />}
+                  buttonIcon={<FaSliders className="icon size-5" />}
                 />
                 <ListContainer type="articles" />
               </>

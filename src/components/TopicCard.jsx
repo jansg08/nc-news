@@ -1,20 +1,19 @@
 import { Link } from "react-router-dom";
-import { articleCard, articleImg } from "../styles/ArticleCard.module.css";
-import {
-  topicSlug,
-  imgWithSlug,
-  description,
-} from "../styles/TopicCard.module.css";
 
 export const TopicCard = ({ topic }) => {
   return (
     <Link to={`/?topic=${topic.slug}`} className="link">
-      <div className={articleCard}>
-        <div className={imgWithSlug}>
-          <img src={`/src/imgs/${topic.slug}.jpg`} className={articleImg} />
-          <span className={topicSlug}>{topic.slug}</span>
+      <div className="big-card">
+        <div className="relative">
+          <img
+            src={`/src/imgs/${topic.slug}.jpg`}
+            className="w-full aspect-video object-cover"
+          />
+          <span className="box-border underline text-xl h-8 flex items-center bg-secondary-bg px-2 py-1 rounded-full absolute right-4 bottom-6">
+            {topic.slug}
+          </span>
         </div>
-        <p className={description}>{topic.description}</p>
+        <p className="py-1">{topic.description}</p>
       </div>
     </Link>
   );

@@ -1,16 +1,6 @@
 import { useLocation, useSearchParams } from "react-router-dom";
 import AscendingIcon from "../icons/up-vote.svg?react";
 import DescendingIcon from "../icons/down-vote.svg?react";
-import {
-  pageHeader,
-  headingItems,
-  showOptionsButton,
-  formRow,
-  orderRadioGroup,
-  optionsForm,
-} from "../styles/PageHeader.module.css";
-import { articleCard } from "../styles/ArticleCard.module.css";
-import { submitButton } from "../styles/AddComment.module.css";
 import { useEffect, useState } from "react";
 import { apiClient } from "../utils/apiClient";
 
@@ -34,26 +24,32 @@ export const PageHeader = ({ headingIcon, heading, buttonIcon }) => {
   useEffect(() => {
     apiClient.get("/topics").then(({ data }) => setTopics(data.topics));
   }, []);
+
   const capitalisedSlug = (slug) =>
     slug && slug[0].toUpperCase() + slug?.slice(1).toLowerCase();
+
   const handleClick = () => {
     setShowSortOptions(!showSortOptions);
   };
+
   const handleSortByChange = (e) => {
     const sortVal = e.target.value;
     setSortByInput(e.target.value);
     fetchNewList({ sortVal });
   };
+
   const handleOrderChange = (e) => {
     const orderVal = e.target.value;
     setOrderInput(e.target.value);
     fetchNewList({ orderVal });
   };
+
   const handleTopicChange = (e) => {
     const topicVal = e.target.value;
     setTopicInput(topicVal);
     fetchNewList({ topicVal });
   };
+
   const fetchNewList = ({
     sortVal = sortByInput,
     orderVal = orderInput,
@@ -66,25 +62,32 @@ export const PageHeader = ({ headingIcon, heading, buttonIcon }) => {
     };
     setSearchParams(newSearchParams);
   };
+
   return (
     <header className="w-full">
-      <div className={headingItems}>
+      <div className="flex items-center gap-2.5 h-[4.5rem]">
         {headingIcon}
         <h2>{capitalisedSlug(searchParams.get("topic")) || heading}</h2>
         {buttonIcon && (
-          <button onClick={handleClick} className={showOptionsButton}>
+          <button
+            onClick={handleClick}
+            className="bg-secondary-bg border-none rounded-full ml-auto p-2.5"
+          >
             {buttonIcon}
           </button>
         )}
       </div>
       {showSortOptions && pathname === "/" && (
-        <div className={`${optionsForm} ${articleCard}`}>
-          <form>
-            <div className={formRow}>
-              <label htmlFor="sortBy">Sort by</label>
+        <div className="big-card mb-6">
+          <form className="flex flex-col gap-2">
+            <div className="flex items-center">
+              <label htmlFor="sortBy" className="w-24 items-center">
+                Sort by
+              </label>
               <select
                 value={sortByInput}
                 onChange={handleSortByChange}
+                className="select-rounded"
                 id="sortBy"
               >
                 {columns.map(([value, innerText]) => (
@@ -93,7 +96,7 @@ export const PageHeader = ({ headingIcon, heading, buttonIcon }) => {
                   </option>
                 ))}
               </select>
-              <div className={orderRadioGroup}>
+              <div className="ml-auto flex items-center">
                 <input
                   type="radio"
                   name="order"
@@ -103,8 +106,13 @@ export const PageHeader = ({ headingIcon, heading, buttonIcon }) => {
                   onChange={handleOrderChange}
                   style={{ display: "none" }}
                 />
-                <label htmlFor="ascending">
-                  <AscendingIcon />
+                <label
+                  htmlFor="ascending"
+                  className="w-auto cursor-pointer inline-flex items-center"
+                >
+                  <AscendingIcon
+                    className={orderInput === "asc" && "fill-accent"}
+                  />
                 </label>
                 <input
                   type="radio"
@@ -115,16 +123,24 @@ export const PageHeader = ({ headingIcon, heading, buttonIcon }) => {
                   onChange={handleOrderChange}
                   style={{ display: "none" }}
                 />
-                <label htmlFor="descending">
-                  <DescendingIcon />
+                <label
+                  htmlFor="descending"
+                  className="w-auto cursor-pointer inline-flex items-center"
+                >
+                  <DescendingIcon
+                    className={orderInput === "desc" && "fill-accent"}
+                  />
                 </label>
               </div>
             </div>
-            <div className={formRow}>
-              <label htmlFor="topic">Select topic</label>
+            <div className="flex items-center">
+              <label htmlFor="topic" className="w-24 items-center">
+                Select topic
+              </label>
               <select
                 value={topicInput}
                 onChange={handleTopicChange}
+                className="select-rounded"
                 id="topic"
               >
                 <option key="any" value="any">
