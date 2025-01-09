@@ -59,6 +59,7 @@ export const PageHeader = ({ headingIcon, heading, buttonIcon }) => {
       sort_by: sortVal,
       order: orderVal,
       topic: topicVal === "any" ? "" : topicVal,
+      p: searchParams.get("p"),
     };
     setSearchParams(newSearchParams);
   };
