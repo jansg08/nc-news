@@ -124,7 +124,7 @@ export const ListContainer = ({ type }) => {
             }
           })}
       </div>
-      {!error && !loading && !noMoreArticles && (
+      {!error && !loading && !noMoreArticles && type === "articles" && (
         <div className="w-full flex justify-center items-center">
           <button
             onClick={loadMoreArtictles}
